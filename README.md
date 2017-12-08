@@ -34,6 +34,11 @@ npm test or npm run test
 ```
 
 # How to use
+Bower
+```bash
+bower install xssjs
+```
+
 Browser
 ```html
 <script src="dist/xss.js"></script>
