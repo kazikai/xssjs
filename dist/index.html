@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+  <title>xss escape/unescape</title>
+  <style>
+    div {
+      margin: 20px;
+      font-size: 40px;
+    }
+    label, input {
+      font-size: 40px;
+      width: 100%;
+    }
+    table {
+      border: 1px solid #ddd;
+    }
+    tr {
+      border: 1px solid #ddd;
+      background: #dcdcdc;
+    }
+    .out {
+      color: red;
+    }
+    .final {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>XSS Escape/Unescape</h1>
+  <div>
+    <table>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+      <tbody id="tbody">
+      </tbody>
+    </table>
+  </div>
+  <div class="in">
+    <label for="in">origin Text</label>
+    <input id="in" type="text" value="<script>(#&`')">
+  </div>
+  <div class="out">
+    <label for="out">escpae Text</label>
+    <input id="out" type="text">
+  </div>
+  <div class="final">
+    <label for="final">upescape Text</label>
+    <input id="final" type="text">
+  </div>
+  <script src="xss.js"></script>
+  <script>
+    var inEl = document.getElementById('in');
+    var tbodyEl = document.getElementById('tbody');
+    var transformEvent = function(){
+      var outEl = document.getElementById('out');
+      var finalEl = document.getElementById('final');
+      var inValue = inEl.value;
+      outEl.value = xss.escape(inValue);
+      finalEl.value = xss.unescape(outEl.value);
+    };
+    var renderMapTable = function() {
+      var makeTd = function(text){
+        var tdEl = document.createElement('td');
+        tdEl.append(text);
+        return tdEl;
+      };
+      var makeTr = function(dom1, dom2) {
+        var trEl = document.createElement('tr');
+        trEl.append(dom1);
+        trEl.append(dom2);
+        return trEl;
+      };
+      var map = xss.map;
+      for(var i in map) {
+        if (map.hasOwnProperty(i)) {
+          tbodyEl.append( makeTr(makeTd(i), makeTd(map[i])));
+        }
+      }
+    };
+    transformEvent();
+    renderMapTable();
+    inEl.addEventListener('keyup', transformEvent);
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "xssjs",
+  "version": "0.0.1",
+  "description": "xss string escape/unescape js ",
+  "main": "dist/xss.js",
+  "scripts": {
+    "test": "mocha test/*.js",
+    "build": "rollup -c",
+    "dev": "rollup -w -c"
+  },
+  "keywords": [
+    "xss",
+    "xss",
+    "escape/unescape"
+  ],
+  "author": "kazikai84@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "mocha": "^4.0.1",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  }
+}
