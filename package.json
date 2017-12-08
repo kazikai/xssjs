@@ -27,7 +27,8 @@
     "test": "test"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "rollup-plugin-uglify": "^2.0.1"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
