@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "xss string escape/unescape js ",
   "main": "dist/xss.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kazikai/xssjs.git"
+  },
   "scripts": {
     "test": "mocha test/*.js",
     "build": "rollup -c",
@@ -15,12 +19,21 @@
   ],
   "author": "kazikai84@gmail.com",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kazikai/xssjs/issues"
+  },
+  "homepage": "https://github.com/kazikai/xssjs#readme",
+  "directories": {
+    "test": "test"
+  },
   "devDependencies": {
+    "mocha": "^4.0.1"
+  },
+  "dependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
-    "mocha": "^4.0.1",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-babel": "^3.0.2"
   }
 }
