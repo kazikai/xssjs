@@ -1,1 +1,81 @@
-!function(e,o){"object"==typeof exports&&"undefined"!=typeof module?o():"function"==typeof define&&define.amd?define(o):o()}(0,function(){"use strict";var e="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(){var o={},n="object"===("undefined"==typeof self?"undefined":e(self))&&self.self===self&&self||"object"===("undefined"==typeof global?"undefined":e(global))&&global.global===global&&global||this||{};"undefined"==typeof exports||exports.nodeType?n.xss=o:("undefined"!=typeof module&&!module.nodeType&&module.exports&&(exports=module.exports=o),exports.xss=o);var t={"&":"&#38;","<":"&lt;",">":"&gt;",'"':"&quot;","#":"&#35;","'":"&#39;","`":"&#x60;","(":"&#40;",")":"&#41;"},f=function(e){var o={};for(var n in e)e.hasOwnProperty(n)&&(o[e[n]]=n);return o}(t),r=function(e){var o=function(o){return e[o]},n=[];for(var t in e)e.hasOwnProperty(t)&&n.push(t);var f=n.join("|");f="(?:"+(f=(f=f.replace(/\(/g,"\\(")).replace(/\)/g,"\\)"))+")";var r=RegExp(f),u=RegExp(f,"g");return function(e){return e=e?""+e:"",r.test(e)?e.replace(u,o):e}};o.escape=r(t),o.unescape=r(f),o.map=t,"function"==typeof define&&define.amd&&define("xss",[],function(){return o})}()});
+(function (factory) {
+  typeof define === 'function' && define.amd ? define(factory) :
+  factory();
+})((function () { 'use strict';
+
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
+
+  (function () {
+    var xss = {};
+
+    var root = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) === 'object' && self.self === self && self || (typeof global === 'undefined' ? 'undefined' : _typeof(global)) === 'object' && global.global === global && global || this || {};
+    if (typeof exports != 'undefined' && !exports.nodeType) {
+      if (typeof module != 'undefined' && !module.nodeType && module.exports) {
+        exports = module.exports = xss;
+      }
+      exports.xss = xss;
+    } else {
+      root.xss = xss;
+    }
+
+    var xssMap = {
+      '&': '&#38;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      '#': '&#35;',
+      "'": '&#39;',
+      '`': '&#x60;',
+      '(': '&#40;',
+      ')': '&#41;'
+    };
+
+    var invert = function invert(map) {
+      var result = {};
+      for (var key in map) {
+        if (map.hasOwnProperty(key)) {
+          result[map[key]] = key;
+        }
+      }
+      return result;
+    };
+
+    var unescapeMap = invert(xssMap);
+    var createEscaper = function createEscaper(map) {
+      var escaper = function escaper(match) {
+        return map[match];
+      };
+      var keys = [];
+      for (var key in map) {
+        if (map.hasOwnProperty(key)) {
+          keys.push(key);
+        }
+      }    var regexp = keys.join('|');
+      // for (,)
+      regexp = regexp.replace(/\(/g, '\\(');
+      regexp = regexp.replace(/\)/g, '\\)');
+      regexp = '(?:' + regexp + ')';
+      var testRegexp = RegExp(regexp);
+      var replaceRegexp = RegExp(regexp, 'g');
+      return function (string) {
+        string = !string ? '' : '' + string;
+        return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+      };
+    };
+
+    xss.escape = createEscaper(xssMap);
+    xss.unescape = createEscaper(unescapeMap);
+    xss.map = xssMap;
+
+    if (typeof define === 'function' && define.amd) {
+      define('xss', [], function () {
+        return xss;
+      });
+    }
+  })();
+
+}));

@@ -27,7 +27,7 @@
     "test": "test"
   },
   "devDependencies": {
-    "mocha": "^4.0.1",
+    "mocha": "^9.1.2",
     "rollup-plugin-uglify": "^2.0.1"
   },
   "dependencies": {
