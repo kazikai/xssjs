@@ -1,6 +1,6 @@
 {
   "name": "xssjs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "xss string escape/unescape js ",
   "main": "dist/xss.js",
   "repository": {
